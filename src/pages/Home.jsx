@@ -1,7 +1,6 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import Loader from '../components/Loader'
-// import { useRef } from 'react'
-import {useState, Suspense, useEffect, useRef, useLayoutEffect} from 'react';
+import { LoadingScreen } from '../components/LoadingScreen';
+import {useState, Suspense, useEffect, useRef} from 'react';
 import  Island   from '../models/Island';
 import Sky from '../models/Sky';
 import Astro from '../models/Astro';
@@ -13,12 +12,16 @@ import dragHandIcon from '../assets/drag.png';
 import "./Home.css"
 
 
+
+
+
+
 // sound credit https://youtu.be/sW-RWCNhcFU?si=HSUlomEMhDHHeQS9
 const OnebigfatsoundAudio = new Audio(Onebigfatsound);
 
 const Home = () => {
   const audioref = useRef(OnebigfatsoundAudio);
-  audioref.current.volume = 0.4;
+  audioref.current.volume = 1.0;
   audioref.current.loop = true;
 
   const [isRotating, setIsRotating] = useState(false);
@@ -30,7 +33,7 @@ const Home = () => {
   
   
 
-  const [isPlayingSound, setIsPlayingSound] = useState(false)
+  const [isPlayingSound, setIsPlayingSound] = useState(true)
   useEffect(() =>{
     if(isPlayingSound){
       audioref.current.play();
@@ -55,6 +58,9 @@ const Home = () => {
      }
     return [screenScale, screenPosition, rotation]
   }
+  
+  const [start, setStart] = useState(false);
+
   
   const adjustUFOForScreenSize = () => {
     let screenScale;
@@ -111,8 +117,8 @@ const Home = () => {
       gl={{ pixelRatio: isSmallDevice ? 0.5 : 1 }} // Set pixelRatio using the gl prop
       >
 
-
-          <Suspense fallback={<Loader />}>
+          
+          <Suspense fallback={null}>
 
           <directionalLight position={[10, 2, 100]} intensity={2} color="#445588" castShadow={false}/>
 
@@ -156,6 +162,8 @@ const Home = () => {
           </Suspense>
 
       </Canvas>
+      <LoadingScreen started={start} onStarted={() => setStart(true)} />
+        
 
       <div className='absolute bottom-2 left-2'>
         <img

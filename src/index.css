@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@400..700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -186,3 +186,112 @@ canvas {
     0.65vmin 1vmin #f39182, 1vmin 0.65vmin #f39182;
 }
 
+.loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 8s;
+  z-index: 10;
+}
+
+.loadingScreen__board {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #000000, #274597);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingScreen__title {
+  font-size: 4rem;
+  color: #ffffff;
+  margin: 0;
+  margin-bottom: 32px;
+  font-family: "Almendra", serif;
+}
+
+.loadingScreen__button {
+  padding: 8px 32px;
+  background-color: rgba(0, 0, 0, 0.24);
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 2.5rem;
+  border-radius: 8px;
+  transition: background-color 0.4s;
+  font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+.loadingScreen__title {
+  font-size: 4rem;
+  color: #ffffff;
+  margin: 0;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .loadingScreen__title {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loadingScreen__title {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+}
+
+
+.loadingScreen__button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.loadingScreen__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+}
+
+.loadingScreen__progress__value {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgb(0 0 0 / 50%);
+  transition: width 0.4s;
+  background-color: rgba(255, 255, 255, 0.5);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.loadingScreen--started {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loadingScreen--started .loadingScreen__board {
+  opacity: 0;
+}
